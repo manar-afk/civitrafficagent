@@ -5,9 +5,7 @@ import dotenv from 'dotenv';
 import { MapManager } from './mapManager.js';
 import { ConciergeEngine } from './concierge.js';
 import { CivicTrafficServer } from './mcpServer.js';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
-import { createMcpExpressApp } from '@modelcontextprotocol/sdk/server/express.js';
 
 dotenv.config();
 
@@ -25,7 +23,8 @@ async function main() {
 
   // Setup express
   const PORT = process.env.PORT || process.env.MCP_PORT || '8080';
-  const app = createMcpExpressApp();
+  const app = express();
+  app.use(express.json());
 
   // CORS middleware for local development
   app.use((req, res, next) => {
