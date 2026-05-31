@@ -1,0 +1,60 @@
+{
+  "town_metadata": {
+    "name": "Civic Path Traffic Model",
+    "description": "Infrastructure-based traffic and parking concierge for local community"
+  },
+  "nodes": {
+    "bus_stand": {
+      "type": "bottleneck",
+      "jam_threshold_buses": 5,
+      "current_bus_count": 0,
+      "status": "clear"
+    },
+    "parking_zones": {
+      "mini_secretariat": {
+        "capacity": 30,
+        "current_occupancy": 0,
+        "status": "available"
+      },
+      "court_building_1": {
+        "capacity": 20,
+        "current_occupancy": 0,
+        "status": "available"
+      },
+      "court_building_2": {
+        "capacity": 20,
+        "current_occupancy": 0,
+        "status": "available"
+      },
+      "hospital_side": {
+        "capacity": 25,
+        "current_occupancy": 0,
+        "status": "available"
+      },
+      "state_highway_side": {
+        "capacity": 15,
+        "current_occupancy": 0,
+        "status": "available"
+      }
+    },
+    "landmarks": {
+      "central_ground": "anchor",
+      "temple": "reference_point",
+      "w_office": "reference_point"
+    },
+    "thoroughfares": {
+      "market_road": {
+        "status": "clear",
+        "priority": "high"
+      },
+      "state_highway_link": {
+        "status": "clear",
+        "priority": "primary"
+      }
+    }
+  },
+  "emergency_protocol": {
+    "distress_trigger": "if bus_count >= 5 then trigger_alert('authorities')",
+    "reroute_advice": "if market_road_status == 'jammed' then recommend_bypass_route"
+  }
+}
