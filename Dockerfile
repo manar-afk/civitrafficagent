@@ -1,10 +1,8 @@
 # Step 1: Build the TypeScript source code and React frontend
 FROM node:20-alpine AS builder
 WORKDIR /app
-COPY package*.json tsconfig.json vite.config.js index.html ./
+COPY . .
 RUN npm ci
-COPY src/ ./src
-COPY server/ ./server
 RUN npm run build
 
 # Step 2: Set up the production runtime
