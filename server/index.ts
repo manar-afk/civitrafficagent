@@ -174,13 +174,12 @@ async function main() {
   const distPath = path.resolve(__dirname, '../../dist');
   app.use(express.static(distPath));
 
-  // Catch-all route to serve index.html for SPA router support
-  app.get('*', (req, res, next) => {
-    // Skip if request is for API or MCP endpoints
-    if (req.path.startsWith('/api') || req.path.startsWith('/mcp') || req.path.startsWith('/messages')) {
-      next();
-    } else {
+  // Fallback middleware to serve index.html for SPA router support
+  app.use((req, res, next) => {
+    if (req.method === 'GET' && !req.path.startsWith('/api') && !req.path.startsWith('/mcp') && !req.path.startsWith('/messages') && !req.path.startsWith('/health')) {
       res.sendFile(path.join(distPath, 'index.html'));
+    } else {
+      next();
     }
   });
 
